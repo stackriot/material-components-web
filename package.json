@@ -86,7 +86,7 @@
     "stylelint-selector-bem-pattern": "^1.0.0",
     "testdouble": "^3.0.0",
     "to-slug-case": "^1.0.0",
-    "validate-commit-msg": "^2.6.1",
+    "validate-commit-msg": "^2.12.2",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.3"
   },
