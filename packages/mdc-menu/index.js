@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
-import * as util from './util';
-export {MDCSimpleMenu, MDCSimpleMenuFoundation} from './simple';
-export {util};
+const util = require('./util');
+const MDCSimpleMenu = require('./simple');
+const MDCSimpleMenuFoundation = require('./simple/foundation');
+module.exports = {MDCSimpleMenu, MDCSimpleMenuFoundation, util};

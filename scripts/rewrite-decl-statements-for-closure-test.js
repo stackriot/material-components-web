@@ -95,14 +95,17 @@ function transform(srcFile, rootDir) {
   });
 
   traverse(ast, {
-    'ImportDeclaration|ExportNamedDeclaration'({node}) {
-      if (node.source) {
+    'VariableDeclaration'({node}) {
+      const variableDeclaration = node.declarations[0];
+      if (variableDeclaration.init
+        && variableDeclaration.init.type == 'CallExpression'
+        && variableDeclaration.init.callee.name == 'require') {
         rewriteDeclarationSource(node, srcFile, rootDir);
       }
     },
   });
 
-  const {code: outputCode} = recast.print(ast, {
+  let {code: outputCode} = recast.print(ast, {
     objectCurlySpacing: false,
     quote: 'single',
     trailingComma: {
@@ -112,12 +115,23 @@ function transform(srcFile, rootDir) {
     },
   });
 
+  const replaceAll = function(target, search, replacement) {
+    return target.split(search).join(replacement);
+  };
+
+  const relativePath = path.relative(rootDir, srcFile);
+  const packageParts = relativePath.replace('mdc-', '').replace('.js', '').split('/');
+  const packageStr = 'mdc.wiz.' + packageParts.join('.').replace('.index', '');
+
+  outputCode = 'goog.module(\'' + packageStr + '\')\n' + outputCode;
+  outputCode = replaceAll(outputCode, 'require(', 'goog.require(');
+  outputCode = outputCode.replace('module.exports', 'exports');
   fs.writeFileSync(srcFile, outputCode, 'utf8');
   console.log(`[rewrite] ${srcFile}`);
 }
 
 function rewriteDeclarationSource(node, srcFile, rootDir) {
-  let source = node.source.value;
+  let source = node.declarations[0].init.arguments[0].value;
   const pathParts = source.split('/');
   const isMDCImport = pathParts[0] === '@material';
   if (isMDCImport) {
@@ -148,7 +162,9 @@ function patchNodeForDeclarationSource(source, srcFile, rootDir, node) {
       }));
     }
   }
-  node.source = t.stringLiteral(resolvedSource);
+  const packageParts = resolvedSource.replace('mdc-', '').replace('.js', '').split('/');
+  const packageStr = 'mdc.wiz.' + packageParts.join('.').replace('.index', '');
+  node.declarations[0].init.arguments[0].value = packageStr;
 }
 
 function patchDefaultImportIfNeeded(node) {

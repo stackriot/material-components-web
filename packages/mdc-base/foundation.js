@@ -17,7 +17,7 @@
 /**
  * @template A
  */
-export default class MDCFoundation {
+class MDCFoundation {
 
   /** @return enum{cssClasses} */
   static get cssClasses() {
@@ -64,3 +64,5 @@ export default class MDCFoundation {
     // Subclasses should override this method to perform de-initialization routines (de-registering events, etc.)
   }
 }
+
+module.exports = MDCFoundation;

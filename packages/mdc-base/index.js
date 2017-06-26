@@ -14,5 +14,6 @@
  * limitations under the License.
  */
 
-export {default as MDCFoundation} from './foundation';
-export {default as MDCComponent} from './component';
+const MDCFoundation = require('./foundation');
+const MDCComponent = require('./component');
+module.exports = {MDCFoundation, MDCComponent};

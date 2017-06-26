@@ -19,7 +19,7 @@ import bel from 'bel';
 import domEvents from 'dom-events';
 import td from 'testdouble';
 
-import {MDCSimpleMenu} from '../../../packages/mdc-menu/simple';
+import MDCSimpleMenu from '../../../packages/mdc-menu/simple';
 import {strings} from '../../../packages/mdc-menu/simple/constants';
 import {getTransformPropertyName} from '../../../packages/mdc-menu/util';
 

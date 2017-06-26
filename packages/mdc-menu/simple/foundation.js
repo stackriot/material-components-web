@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import MDCFoundation from '@material/base/foundation';
-import MDCSimpleMenuAdapter from './adapter';
-import {cssClasses, strings, numbers} from './constants';
-import {clamp, bezierProgress} from '../util';
+const MDCFoundation = require('@material/base/foundation');
+const MDCSimpleMenuAdapter = require('./adapter');
+const {cssClasses, strings, numbers} = require('./constants');
+const {clamp, bezierProgress} = require('../util');
 
 /**
  * @extends {MDCFoundation<!MDCSimpleMenuAdapter>}
  */
-export default class MDCSimpleMenuFoundation extends MDCFoundation {
+class MDCSimpleMenuFoundation extends MDCFoundation {
   /** @return enum{cssClasses} */
   static get cssClasses() {
     return cssClasses;
@@ -478,4 +478,4 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
   }
 }
 
-
+module.exports = MDCSimpleMenuFoundation;

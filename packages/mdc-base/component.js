@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import MDCFoundation from './foundation';
+const MDCFoundation = require('./foundation');
 
 /**
  * @template F
  */
-export default class MDCComponent {
+class MDCComponent {
 
   /**
    * @param {!Element} root
@@ -121,3 +121,5 @@ export default class MDCComponent {
     this.root_.dispatchEvent(evt);
   }
 }
+
+module.exports = MDCComponent;

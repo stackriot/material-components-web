@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-import MDCComponent from '@material/base/component';
-import MDCSimpleMenuFoundation from './foundation';
-import {getTransformPropertyName} from '../util';
-
-export {MDCSimpleMenuFoundation};
+const MDCComponent = require('@material/base/component');
+const MDCSimpleMenuFoundation = require('./foundation');
+const {getTransformPropertyName} = require('../util');
 
 /**
  * @extends MDCComponent<!MDCSimpleMenuFoundation>
  */
-export class MDCSimpleMenu extends MDCComponent {
+class MDCSimpleMenu extends MDCComponent {
   /** @param {...?} args */
   constructor(...args) {
     super(...args);
@@ -147,3 +145,5 @@ export class MDCSimpleMenu extends MDCComponent {
     });
   }
 }
+
+module.exports = MDCSimpleMenu;
